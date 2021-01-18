@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	
+    <!-- Custom styles for this template -->
+    <link href="/public/css/signin.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form id="login-form" class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail">Email address</label>
+        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+        </br>
+		<label for="inputPassword">Password</label>
+		<a style="float: right;">Forget password?</a>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		<div class="create-account">
+			<p>
+				New here?
+				<a href="/register">Create an acount</a>
+			</p>
+		</div>
+      </form>
+
+    </div> <!-- /container -->
+	
+	<script type="text/javascript"
+			src="../node_modules/jquery/dist/jquery.js"></script>
+			
+	<script type="text/javascript">
+		/**
+		 * handle the form submition asynchrously
+		 * the form submition is synchrous defaultly
+		 */ 
+		$('#login-form').on('submit', function(e) {
+			e.preventDefault();
+			var formData = $(this).serialize();
+			
+			$.ajax({
+				url: '/login',
+				type: 'post',
+				data: formData,
+				datatype: 'json',
+				success: function(data) {
+					var errCode = data.errCode;
+					if (errCode === 0) {
+						//window.alert(data.message);
+						//redirect
+						window.location.href = '/';
+					}
+					else if (errCode === 1) {
+						window.alert(data.message);
+					}
+					else {
+						window.alert(data.message);
+					}
+				}
+			});
+		});
+	</script>
+  </body>
+</html>

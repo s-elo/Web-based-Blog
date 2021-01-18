@@ -1,0 +1,92 @@
+{{extend './_layouts/layout.html'}}
+
+{{ block 'title' }}Blog Home Page{{ /block }}
+
+{{ block 'body' }}
+<section class="container">
+	<ul class="media-list">
+		{{ each topic }}
+		<li class="media">
+			<div class="media-left">
+				<a href="#">
+					<img width="40" height="40" class="media-object" 
+						 src="../public/img/profile.jpg"/>
+				</a>
+			</div>
+			
+			<div class="media-body">
+				<h4 class="media-heading"><a href="/comment?id={{ $value._id }}">{{ $value.title }}</a></h4>
+				<p>
+					{{ $value.nickName }} throws a topic · {{ $value.attention }} attentions · {{ $value.postTime }}
+				</p>
+			</div>
+		</li>
+		{{ /each }}
+		<li class="media">
+			<div class="media-left">
+				<a href="#">
+					<img width="40" height="40" class="media-object" 
+						 src="../public/img/profile.jpg"/>
+				</a>
+			</div>
+			
+			<div class="media-body">
+				<h4 class="media-heading"><a>Media Heading</a></h4>
+				<p>
+					superli replied the question · 2 attentions · 1 replay · 187 browsing · 2021-1-16 13:09
+				</p>
+			</div>
+		</li>
+		<li class="media">
+			<div class="media-left">
+				<a href="#">
+					<img width="40" height="40" class="media-object" 
+						 src="../public/img/profile.jpg"/>
+				</a>
+			</div>
+			
+			<div class="media-body">
+				<h4 class="media-heading"><a>Media Heading</a></h4>
+				<p>
+					superli replied the question · 2 attentions · 1 replay · 187 browsing · 2021-1-16 13:09
+				</p>
+			</div>
+		</li>
+		<li class="media">
+			<div class="media-left">
+				<a href="#">
+					<img width="40" height="40" class="media-object" 
+						 src="../public/img/profile.jpg"/>
+				</a>
+			</div>
+			
+			<div class="media-body">
+				<h4 class="media-heading"><a>Media Heading</a></h4>
+				<p>
+					superli replied the question · 2 attentions · 1 replay · 187 browsing · 2021-1-16 13:09
+				</p>
+			</div>
+		</li>
+	</ul>
+	
+	<nav aria-label="Page navigation">
+		<ul class="pagination">
+			<li>
+				<a href="#" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			<li class="active"><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li>
+				<a href="#" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</section>
+{{ /block }}
+

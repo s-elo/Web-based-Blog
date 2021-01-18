@@ -1,0 +1,34 @@
+{{ extend '../_layouts/layout.html' }}
+
+{{ block 'title' }}
+Post
+{{ /block }}
+
+{{ block 'body' }}
+<div class="container" style="margin-left: 300px;">
+	<div class="table-responsive" id="table-basicInfo" style="width: 600px; float: left;">
+		<form action="/post" method="post" style="margin-left: 20px;">
+		  <div class="form-group">
+		    <label for="">Title</label>
+		    <input type="text" name="title" class="form-control">
+		  </div>
+		  <div class="form-group">
+		    <label for="">Content</label>
+		    <div>
+		    	<textarea class="form-control" name="comment" style="height: 300px;"
+		    			  required minlength="5" maxlength="20" style="OVERFLOW: hidden"></textarea>
+		    </div>
+		  </div>
+		  <button type="submit" class="btn btn-primary">Post</button>
+		</form>		
+	</div>
+</div>
+{{ /block }}
+
+{{ block 'script' }}
+<script type="text/javascript">
+	$('#post').css('display', 'none');
+	$('#dropdown').css('display', 'none');
+</script>
+{{ /block }}
+

@@ -1,0 +1,63 @@
+{{extend '../_layouts/layout.html'}}
+
+{{ block 'title' }}Basic Information{{ /block }}
+
+{{ block 'body' }}
+<div class="container">
+	<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" style="float: left;">
+	    <div class="list-group">
+	        <p class="list-group-item active">User Setting</p>
+	        <a href="/settings/basicInfo" class="list-group-item">Basic Information</a>
+	        <a href="/settings/accountSetting" class="list-group-item">Account</a>
+	    </div>
+	</div><!--/.sidebar-offcanvas-->
+	
+	<div class="table-responsive" id="table-basicInfo" style="width: 400px; float: left;">
+		<form action="/settings/basicInfo" method="post" style="margin-left: 20px;">
+		  <div class="form-group">
+		    <label for="">Account</label>
+		    <p>zz321yy@qq.com</p>
+		  </div>
+		  <div class="form-group">
+		    <label for="">Nick Name</label>
+		    <input type="text" name="nickName" class="form-control">
+		  </div>
+		  <div class="form-group">
+		    <label for="">Gender</label>
+			<div>
+				<label class="radio-inline">
+				  <input type="radio" name="gender" value="-1"> secret
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="gender" value="0"> male
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="gender" value="1"> female
+				</label>
+			</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="">Introduction</label>
+			<div>
+				<textarea class="form-control" name="bio" cols="30" rows="30" style="height: 100px;"
+						  required minlength="5" maxlength="20" style="OVERFLOW: hidden"></textarea>
+			</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="">Birthday</label>
+		    <div>
+		    	<input type="text" name="birthday" class="form-control">
+		    </div>
+		  </div>
+		  <button type="submit" class="btn btn-primary">Save</button>
+		</form>		
+	</div>
+	
+	<div style="float: left; margin-left: 50px;">
+		<label>Avatar Setting</label>
+		<img width="140" height="140" class="media-object"
+			 src="../public/img/profile.jpg"/>
+		<button type="button" class="btn btn-default" style="margin-top: 20px;">Upload new avatar</button>
+	</div>	
+</div>
+{{ /block }}

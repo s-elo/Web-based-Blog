@@ -1,0 +1,40 @@
+<!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">A Blog</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/">Home</a></li>
+              <!-- <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li> -->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+			  {{ if user }}
+			  <li class="dropdown" id="dropdown">
+			    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+			    <ul class="dropdown-menu">
+			  				  <li class="dropdown-header" id="userName">Current user: {{ user.nickName }}</li>
+			  				  <li role="separator" class="divider"></li>
+			      <li><a href="#">Personal page</a></li>
+			      <li><a href="/settings/basicInfo">Setting</a></li>
+			      <li><a href="/loginOut">Login out</a></li>
+			    </ul>
+			  </li>
+			  <li class="active" id="post" ><a href="/post">Post</a></li>
+			  {{ else }}
+			  <li id="login"><a href="/login">Sign in</a></li>
+			  <li id="register"><a href="/register">Sign up</a></li>
+			  {{ /if }}
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+

@@ -1,0 +1,24 @@
+{{ extend '../_layouts/layout.html' }}
+
+{{ block 'title' }}
+Comment Section
+{{ /block }}
+
+{{ block 'body' }}
+<div class="container" style="margin-left: 200px; width: 900px;">
+	<h2>{{ topic.title }}</h2>
+	<hr />
+	<div class="media-left">
+		<a href="#">
+			<img width="40" height="40" class="media-object" 
+				 src="../public/img/profile.jpg"/>
+		</a>
+	</div>
+	<h5>Author: {{ topic.nickName }}</h5>
+	<h5>Post time: {{ topic.postTime }}</h5>
+	<hr />
+	{{ topic.comment }}
+</div>
+{{ /block }}
+
+

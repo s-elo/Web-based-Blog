@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Register</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	
+    <!-- Custom styles for this template -->
+    <link href="/public/css/signin.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form id="register-form" class="form-signin">
+        <h2 class="form-signin-heading">Create your account</h2>
+        <label for="inputEmail">Email address</label>
+        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+        </br>
+		<label for="inputNickName">Nick name</label>
+        <input type="text" id="inputNickName" name="nickName" class="form-control" placeholder="Nick name" required autofocus>
+		</br>
+		<label for="inputPassword">Password</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+        
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+		<div class="create-account">
+			<p>
+				Already have?
+				<a href="/login">click to sign in</a>
+			</p>
+		</div>
+      </form>
+
+    </div> <!-- /container -->
+	
+	<script type="text/javascript"
+			src="../node_modules/jquery/dist/jquery.js"></script>
+			
+	<script type="text/javascript">
+		/**
+		 * handle the form submition asynchrously
+		 * the form submition is synchrous defaultly
+		 */ 
+		$('#register-form').on('submit', function(e) {
+			e.preventDefault();
+			var formData = $(this).serialize();
+			
+			$.ajax({
+				url: '/register',
+				type: 'post',
+				data: formData,
+				datatype: 'json',
+				success: function(data) {
+					var errCode = data.errCode;
+					if (errCode === 0) {
+						//window.alert(data.message);
+						//redirect
+						window.location.href = '/';
+					}
+					else if (errCode === 1) {
+						window.alert(data.message);
+					}
+					else {
+						window.alert(data.message);
+					}
+				}
+			});
+		});
+	</script>
+  </body>
+</html>

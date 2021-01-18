@@ -1,0 +1,39 @@
+{{extend '../_layouts/layout.html'}}
+
+{{ block 'title' }}Basic Information{{ /block }}
+
+{{ block 'body' }}
+<div class="container">
+	<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+	    <div class="list-group">
+	        <p class="list-group-item active">User Setting</p>
+	        <a href="/settings/basicInfo" class="list-group-item">Basic Information</a>
+	        <a href="/settings/accountSetting" class="list-group-item">Account</a>
+	    </div>
+	</div><!--/.sidebar-offcanvas-->
+	
+	<div class="table-responsive" id="table-basicInfo" style="width: 400px;">
+		<form action="/settings/accountSetting" method="post" style="margin-left: 20px;">
+		  <h2 class="form-signin-heading">Change Password</h2><hr />
+		  <div class="form-group">
+		    <label for="">Current password</label>
+		    <input type="text" name="password" class="form-control">
+		  </div>
+		  <div class="form-group">
+		    <label for="">New password</label>
+		    <input type="text" name="password" class="form-control">
+		  </div>
+		  <div class="form-group">
+		    <label for="">Confirm password</label>
+		    <input type="text" name="password" class="form-control">
+		  </div>
+		  
+		  <button type="submit" class="btn btn-primary">Save</button>
+		  
+		  <h2 class="form-signin-heading">Delete this account</h2><hr />
+		  <p>Once you delete, it is impossible to find it back!</p><hr />
+		  <button type="submit" class="btn btn-danger">Delete</button>
+		</form>		
+	</div>
+</div>
+{{ /block }}
