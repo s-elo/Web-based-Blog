@@ -4,6 +4,10 @@
 Comment Section
 {{ /block }}
 
+{{ block 'style'}}
+<link rel="stylesheet" type="text/css" href="/node_modules/mditor/dist/css/mditor.min.css"/>
+{{ /block }}
+
 {{ block 'body' }}
 <div class="container" style="margin-left: 200px; width: 900px;">
 	<h2>{{ topic.title }}</h2>
@@ -17,8 +21,31 @@ Comment Section
 	<h5>Author: {{ topic.nickName }}</h5>
 	<h5>Post time: {{ topic.postTime }}</h5>
 	<hr />
-	{{ topic.comment }}
+	<div class="markdown-body">
+		{{ topic.content }}
+	</div>
 </div>
+{{ /block }}
+
+{{ block 'script' }}
+<script type="text/javascript">
+	var str = `{{ topic.content }}`;
+	var html = htmlDecodeByRegExp(str);
+	
+	$('.markdown-body').html(html);
+	
+	function htmlDecodeByRegExp(str) { 
+	       var temp = "";
+	       if(str.length == 0) return "";
+	       temp = str.replace(/&#38;/g,"&");
+	       temp = temp.replace(/&#60;/g,"<");
+	       temp = temp.replace(/&#62;/g,">");
+	       temp = temp.replace(/&#160;/g," ");
+	       temp = temp.replace(/&#39;/g,"\'");
+	       temp = temp.replace(/&#34;/g,"\"");
+	       return temp; 
+	}
+</script>
 {{ /block }}
 
 

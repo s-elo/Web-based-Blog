@@ -8,7 +8,7 @@ var topicSchema = new mongoose.Schema({
 		type: String,
 		default: 'No title'
 	},
-	comment: {
+	content: {
 		type: String,
 		required: true
 	},

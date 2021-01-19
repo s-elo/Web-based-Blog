@@ -4,31 +4,67 @@
 Post
 {{ /block }}
 
+{{ block 'style'}}
+<link rel="stylesheet" type="text/css" href="/node_modules/mditor/dist/css/mditor.min.css"/>
+<style type="text/css">
+			/* .markdown-body{
+				max-width: 900px;
+				margin: auto;
+				color: #24292e;
+				font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+			    font-size: 16px;
+				line-height: 1.5;
+			} */
+</style>
+{{ /block }}
+
 {{ block 'body' }}
-<div class="container" style="margin-left: 300px;">
-	<div class="table-responsive" id="table-basicInfo" style="width: 600px; float: left;">
-		<form action="/post" method="post" style="margin-left: 20px;">
-		  <div class="form-group">
-		    <label for="">Title</label>
-		    <input type="text" name="title" class="form-control">
-		  </div>
-		  <div class="form-group">
-		    <label for="">Content</label>
-		    <div>
-		    	<textarea class="form-control" name="comment" style="height: 300px;"
-		    			  required minlength="5" maxlength="20" style="OVERFLOW: hidden"></textarea>
-		    </div>
-		  </div>
-		  <button type="submit" class="btn btn-primary">Post</button>
-		</form>		
+<div class="container">
+	<div class="table-responsive" id="table-basicInfo">
+		<form action="/post" method="post">
+			<div class="form-group" style="float: left;">
+			    <label for="">Title: </label>
+			    <input style="width: 550px;" type="text" name="title" class="form-control">
+			</div>
+			<div id="postContainer" class="form-group" style="float: left; margin-top: 25px; margin-left: 20px;">
+				<input type="text" name="content" id="contnet" style="display: none;"/>
+				<button type="submit" class="btn btn-primary" id="postBtn">Post</button>
+			</div>
+		</form>
+	</div>
+	
+	<div id="markdownContainer" class="form-group">
+		<textarea name="editor" id="editor"></textarea>
 	</div>
 </div>
+<br />
 {{ /block }}
 
 {{ block 'script' }}
+<script type="text/javascript" src="../node_modules/mditor/dist/js/mditor.min.js"></script>
+
 <script type="text/javascript">
 	$('#post').css('display', 'none');
 	$('#dropdown').css('display', 'none');
+	
+	var mditor =  Mditor.fromTextarea(document.getElementById('editor'));
+	 
+	mditor.on('ready',function(){
+	  mditor.value = '** superli **';
+	  console.log(mditor.value);
+	  
+	  // console.log($('.markdown-body'));
+	  // $('.markdown-body').html(`ddd`);
+	  // var html = $('.markdown-body').html();
+	  // console.log(html);
+	  // $('#contnet').val(html);
+	  
+	  $('#postBtn').click(function() {
+		  var html = $('.markdown-body').html();
+		  //console.log(html);
+		  $('#contnet').val(html);
+	  });
+	});
 </script>
 {{ /block }}
 

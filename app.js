@@ -6,7 +6,7 @@ const session = require('express-session');
 
 const sessionRouter = require('./routers/session.js');
 const settingRouter = require('./routers/setting.js');
-const commentRouter = require('./routers/comment.js');
+const contentRouter = require('./routers/blogContent.js');
 
 const app = express();
 
@@ -37,7 +37,7 @@ app.use(session({
 
 app.use(sessionRouter);
 app.use(settingRouter);
-app.use(commentRouter);
+app.use(contentRouter);
 
 app.listen(3000, function() {
 	console.log('running at port 3000....');
