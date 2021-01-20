@@ -21,6 +21,7 @@ router.post('/post', function(req, res) {
 		}
 		console.log('deleted');
 	});
+	
 	var recData = req.body;
 	recData.email = req.session.user.email;
 	recData.nickName = req.session.user.nickName;

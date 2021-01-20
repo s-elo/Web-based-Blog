@@ -22,53 +22,6 @@
 			</div>
 		</li>
 		{{ /each }}
-		<li class="media">
-			<div class="media-left">
-				<a href="#">
-					<img width="40" height="40" class="media-object" 
-						 src="../public/img/profile.jpg"/>
-				</a>
-			</div>
-			
-			<div class="media-body">
-				<h4 class="media-heading"><a>Media Heading</a></h4>
-				<p>
-					superli replied the question · 2 attentions · 1 replay · 187 browsing · 2021-1-16 13:09
-				</p>
-			</div>
-		</li>
-		<li class="media">
-			<div class="media-left">
-				<a href="#">
-					<img width="40" height="40" class="media-object" 
-						 src="../public/img/profile.jpg"/>
-				</a>
-			</div>
-			
-			<div class="media-body">
-				<h4 class="media-heading"><a>Media Heading</a></h4>
-				<p>
-					superli replied the question · 2 attentions · 1 replay · 187 browsing · 2021-1-16 13:09
-				</p>
-			</div>
-		</li>
-		<li class="media">
-			<div class="media-left">
-				<a href="#">
-					<img width="40" height="40" class="media-object" 
-						 src="../public/img/profile.jpg"/>
-				</a>
-			</div>
-			
-			<div class="media-body">
-				<h4 class="media-heading"><a>Media Heading</a></h4>
-				<p>
-					superli replied the question · 2 attentions · 1 replay · 187 browsing · 2021-1-16 13:09
-				</p>
-			</div>
-		</li>
-	</ul>
-	
 	<nav aria-label="Page navigation">
 		<ul class="pagination">
 			<li>
@@ -88,5 +41,57 @@
 		</ul>
 	</nav>
 </section>
+{{ /block }}
+
+{{ block 'script'}}
+<script type="text/javascript">
+	var pageNumFromServer = {{ pageNum }};//number type
+	//console.log(pageNumFromServer)
+	
+	var maxPageNum = {{ maxPageNum }};
+	
+	$.each($('.pagination>li'), function(index, value) {
+		//console.log(value);
+		//console.log($(this).attr('class'))
+		
+		if ((index != 0) && (index != 5)) {
+			//handle the index based on the pageNumFromServer
+			
+			//get a tag
+			//here the this is the li tag
+			var $a = $(this).children(':first');
+			
+			//at the end of the pages
+			if (index > (maxPageNum - pageNumFromServer + 1)) {
+				$a.css('display', 'none');
+			}
+			else {
+				$a.html(pageNumFromServer + index - 1);
+					
+				$a.attr('href', `/?pageNum=${pageNumFromServer + index - 1}`);
+			}	
+		}
+		//when is next or last page 
+		else {
+			let $a = $(this).children(':first');
+			
+			if (index === 0) {
+				if (pageNumFromServer === 1) {
+					$a.css('display', 'none');
+				}
+				 
+				$a.attr('href', `/?pageNum=${pageNumFromServer - 1}`);
+			}
+			
+			else {
+				//when it is the end of the pages
+				if ((maxPageNum - pageNumFromServer + 1) <= 4) {
+					$a.css('display', 'none');
+				}
+				$a.attr('href', `/?pageNum=${pageNumFromServer + 1}`);
+			}
+		}
+	})
+</script>
 {{ /block }}
 

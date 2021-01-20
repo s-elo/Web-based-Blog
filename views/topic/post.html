@@ -30,6 +30,7 @@ Post
 				<input type="text" name="content" id="contnet" style="display: none;"/>
 				<button type="submit" class="btn btn-primary" id="postBtn">Post</button>
 			</div>
+			<input id="postTime" style="display: none;" type="text" name="postTime" class="form-control">
 		</form>
 	</div>
 	
@@ -63,8 +64,20 @@ Post
 		  var html = $('.markdown-body').html();
 		  //console.log(html);
 		  $('#contnet').val(html);
+		  
+		  //get time
+		  var postTime = getDate();
+		  $('#postTime').val(postTime);
 	  });
 	});
+	
+	function getDate() {
+		var date = new Date();
+		
+		//console.log(date.getFullYear());
+		
+		return (`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}; ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`)
+	}
 </script>
 {{ /block }}
 

@@ -24,6 +24,17 @@ router.get('/', function(req, res) {
 	// }
 	//console.log(req.session.topic)
 	
+	//console.log(typeof req.query.pageNum);//get pageNum
+	
+	//for first time open the index page
+	if (req.query.pageNum === undefined) {
+		//console.log('true');
+		var pageNum = 1;
+	}
+	else {
+		var pageNum = req.query.pageNum;
+	}
+	
 	//find all the topics
 	Topic.find(function(err, topicArray) {
 		if (err) {
@@ -32,9 +43,21 @@ router.get('/', function(req, res) {
 		//console.log(topicArray)//[{},{},{}]
 		//put the latest one at the top
 		topicArray = topicArray.reverse();
+		
+		//get the number of the topics
+		var topicNum = topicArray.length;
+		if ((topicNum % 10) != 0){
+			var maxPageNum = (topicNum / 10) + 1;
+		}
+		else {
+			var maxPageNum = (topicNum / 10);
+		}
+		
 		res.render('index.html', {
 			user: req.session.user,
-			topic: topicArray
+			topic: topicArray.splice((pageNum - 1) * 10, (pageNum - 1) * 10 + 10),
+			pageNum: pageNum,
+			maxPageNum: maxPageNum
 		});
 	});
 });

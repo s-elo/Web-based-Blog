@@ -13,8 +13,8 @@ var topicSchema = new mongoose.Schema({
 		required: true
 	},
 	postTime: {
-		type: Date,
-		default: Date.now
+		type: String,
+		required: true
 	},
 	attention: {
 		type: Number,
