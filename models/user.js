@@ -30,7 +30,7 @@ var userSchema = new schema({
 	},
 	avatar: {
 		type: String,
-		default: '/public/img/profile.jpg'
+		default: '../public/img/profile.jpg'
 	},
 	bio: {
 		type: String,

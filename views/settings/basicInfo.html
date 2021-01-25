@@ -20,33 +20,33 @@
 		  </div>
 		  <div class="form-group">
 		    <label for="">Nick Name</label>
-		    <input type="text" name="nickName" class="form-control">
+		    <input id="nickName" type="text" name="nickName" class="form-control">
 		  </div>
 		  <div class="form-group">
 		    <label for="">Gender</label>
 			<div>
 				<label class="radio-inline">
-				  <input type="radio" name="gender" value="-1"> secret
+				  <input class="gender" type="radio" name="gender" value="-1"> secret
 				</label>
 				<label class="radio-inline">
-				  <input type="radio" name="gender" value="0"> male
+				  <input class="gender" type="radio" name="gender" value="0"> male
 				</label>
 				<label class="radio-inline">
-				  <input type="radio" name="gender" value="1"> female
+				  <input class="gender" type="radio" name="gender" value="1"> female
 				</label>
 			</div>
 		  </div>
 		  <div class="form-group">
 		    <label for="">Introduction</label>
 			<div>
-				<textarea class="form-control" name="bio" cols="30" rows="30" style="height: 100px;"
-						  required minlength="5" maxlength="20" style="OVERFLOW: hidden"></textarea>
+				<textarea id="bio" class="form-control" name="bio" cols="30" rows="30" style="height: 100px;"
+						  maxlength="100" style="OVERFLOW: hidden"></textarea>
 			</div>
 		  </div>
 		  <div class="form-group">
 		    <label for="">Birthday</label>
 		    <div>
-		    	<input type="text" name="birthday" class="form-control">
+		    	<input id="birthday" type="date" name="birthday" class="form-control">
 		    </div>
 		  </div>
 		  <button type="submit" class="btn btn-primary">Save</button>
@@ -55,9 +55,76 @@
 	
 	<div style="float: left; margin-left: 50px;">
 		<label>Avatar Setting</label>
-		<img width="140" height="140" class="media-object"
-			 src="../public/img/profile.jpg"/>
-		<button type="button" class="btn btn-default" style="margin-top: 20px;">Upload new avatar</button>
+		<img id="profile" width="140" height="140" class="media-object"
+			 src="{{ path }}"/>
+		<button id="btn2" type="button" class="btn btn-default" style="margin-top: 20px;">Upload new avatar</button>
+		<input id="avatar" type="file" name="avatar" style="display: none;"/>
 	</div>	
 </div>
+{{ /block }}
+
+{{ block 'script'}}
+<script type="text/javascript">
+	
+	var genderNum = {{ user.gender }};
+	//console.log(genderNum);
+	
+	if (genderNum === -1) {
+		$('.gender').eq(0).attr('checked', 'checked');
+	}
+	if (genderNum === 0) {
+		$('.gender').eq(1).attr('checked', 'checked');
+	}
+	if (genderNum === 1) {
+		$('.gender').eq(2).attr('checked', 'checked');
+	}
+	
+	$('#nickName').val('{{ user.nickName }}');
+	$('#bio').val('{{ user.bio }}');
+	$('#birthday').val('{{ user.birthday }}');
+	
+	$('#btn2').click(function() {
+		$('#avatar').trigger('click');
+	})
+	
+	// function getObjectURL(file) {
+	// 		var url = null;
+	// 		if (window.createObjectURL != undefined) { // basic
+	// 		    url = window.createObjectURL(file);
+	// 		} else if (window.URL != undefined) { // mozilla(firefox)
+	// 		    url = window.URL.createObjectURL(file);
+	// 		} else if (window.webkitURL != undefined) { // webkit or chrome
+	// 		    url = window.webkitURL.createObjectURL(file);
+	// 		}
+	// 		return url;
+	// }
+	
+	var fileObj;
+	var formdata = new FormData();
+	
+	// formdata.append('img',a);
+	// console.log(formdata.get('img'))        
+	
+	$("input[type='file']").change(function(){   
+		// console.log(this.value)
+		// $('#profile').attr('src', this.value)
+		fileObj = this.files[0];
+		
+		formdata.append('img',fileObj);
+		console.log(formdata)
+		console.log(formdata.get('img'))     
+		
+		$.ajax({
+			url: '/avatar',
+			data: formdata,
+			type: 'POST',
+			processData: false,//必须
+			contentType: false,//必须
+			success: function(data){
+			    console.log(data)
+			    $('#profile').attr("src", data.imgPath);
+			}
+		})
+	});
+</script>
 {{ /block }}

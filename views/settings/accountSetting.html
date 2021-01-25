@@ -13,19 +13,19 @@
 	</div><!--/.sidebar-offcanvas-->
 	
 	<div class="table-responsive" id="table-basicInfo" style="width: 400px;">
-		<form action="/settings/accountSetting" method="post" style="margin-left: 20px;">
+		<form id="form" style="margin-left: 20px;">
 		  <h2 class="form-signin-heading">Change Password</h2><hr />
 		  <div class="form-group">
 		    <label for="">Current password</label>
-		    <input type="text" name="password" class="form-control">
+		    <input type="password" name="password" class="form-control">
 		  </div>
 		  <div class="form-group">
 		    <label for="">New password</label>
-		    <input type="text" name="password" class="form-control">
+		    <input type="password" name="password" class="form-control">
 		  </div>
 		  <div class="form-group">
 		    <label for="">Confirm password</label>
-		    <input type="text" name="password" class="form-control">
+		    <input type="password" name="password" class="form-control">
 		  </div>
 		  
 		  <button type="submit" class="btn btn-primary">Save</button>
@@ -36,4 +36,26 @@
 		</form>		
 	</div>
 </div>
+{{ /block }}
+
+{{ block 'script' }}
+<script type="text/javascript">
+	$('#form').on('submit', function(evt) {
+		evt.preventDefault();
+		
+		var formData = $(this).serialize();
+		
+		$.ajax({
+			url: '/settings/accountSetting',
+			type: 'POST',
+			data: formData,
+			success: function(data) {
+				window.alert(data.message);
+			},
+			error: function(err) {
+				console.log(err);
+			}
+		})
+	})
+</script>
 {{ /block }}
