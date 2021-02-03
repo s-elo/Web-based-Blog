@@ -47,10 +47,10 @@ router.get('/', function(req, res) {
 		//get the number of the topics
 		var topicNum = topicArray.length;
 		if ((topicNum % 10) != 0){
-			var maxPageNum = (topicNum / 10) + 1;
+			var maxPageNum = parseInt((topicNum / 10) + 1)
 		}
 		else {
-			var maxPageNum = (topicNum / 10);
+			var maxPageNum = parseInt((topicNum / 10));
 		}
 		
 		res.render('index.html', {

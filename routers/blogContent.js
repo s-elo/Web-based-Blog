@@ -6,6 +6,10 @@ const Topic = require('../models/topic.js');
 const router = express.Router();
 
 router.get('/post', function(req, res) {
+	//console.log(req.session.user)
+	if (req.session.user === undefined) {
+		res.send('Please login first');
+	}
 	res.render('topic/post.html', {
 		user: req.session.user
 	});
@@ -13,14 +17,14 @@ router.get('/post', function(req, res) {
 router.post('/post', function(req, res) {
 	console.log(req.body);
 	console.log(req.session.user);
-	Topic.remove({
-		title: 'test2'
-	}, function(err, ret) {
-		if (err) {
-			throw err;
-		}
-		console.log('deleted');
-	});
+	// Topic.remove({
+	// 	title: 'test2'
+	// }, function(err, ret) {
+	// 	if (err) {
+	// 		throw err;
+	// 	}
+	// 	console.log('deleted');
+	// });
 	
 	var recData = req.body;
 	recData.email = req.session.user.email;

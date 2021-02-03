@@ -15,6 +15,8 @@ const app = express();
  * __filename: current absolute file path
  */
 app.use('/public/', express.static(path.join(__dirname, './public/')));
+// console.log(__dirname)
+// console.log(__filename)
 app.use('/node_modules/', express.static(path.join(__dirname, './node_modules/')));
 
 app.engine('html', require('express-art-template'));

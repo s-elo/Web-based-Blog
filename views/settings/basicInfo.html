@@ -111,15 +111,15 @@
 		fileObj = this.files[0];
 		
 		formdata.append('img',fileObj);
-		console.log(formdata)
-		console.log(formdata.get('img'))     
+		// console.log(formdata)
+		// console.log(formdata.get('img'))     
 		
 		$.ajax({
 			url: '/avatar',
 			data: formdata,
 			type: 'POST',
-			processData: false,//必须
-			contentType: false,//必须
+			processData: false,//necessary
+			contentType: false,//necessary
 			success: function(data){
 			    console.log(data)
 			    $('#profile').attr("src", data.imgPath);

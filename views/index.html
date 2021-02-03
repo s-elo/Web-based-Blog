@@ -29,7 +29,7 @@
 					<span aria-hidden="true">&laquo;</span>
 				</a>
 			</li>
-			<li class="active"><a href="#">1</a></li>
+			<li><a href="#">1</a></li>
 			<li><a href="#">2</a></li>
 			<li><a href="#">3</a></li>
 			<li><a href="#">4</a></li>
@@ -40,6 +40,9 @@
 			</li>
 		</ul>
 	</nav>
+	<div class="indexShow">
+		{{ pageNum }}/{{ maxPageNum }}
+	</div>
 </section>
 {{ /block }}
 
@@ -50,7 +53,13 @@
 	
 	var maxPageNum = {{ maxPageNum }};
 	
-	$.each($('.pagination>li'), function(index, value) {
+	$.each($('.pagination>li'), function (index, value) {
+		$(this).hover(function () {
+			$(this).addClass('active');
+			//$(this).siblings().removeClass('active');
+		}, function () {
+			$(this).removeClass('active');
+		});
 		//console.log(value);
 		//console.log($(this).attr('class'))
 		

@@ -127,5 +127,33 @@ router.post('/settings/accountSetting', function(req, res) {
 	}
 });
 
+//delete
+router.post('/setting/delete', function (req, res) {
+	//console.log(req.body);
+	if (req.session.user.avatar != '../public/img/profile.jpg') {
+		let path = req.session.user.avatar;
+		let len = path.length;
+		
+		// path should be ./public/img/xxx
+		fs.unlink(path.slice(1, len), function (err) {
+			if (err) return console.error(err);
+		})
+	}
+	
+	User.remove({
+		nickName: req.session.user.nickName
+	}, function (err, ret) {
+		if (err) return console.error(err);
+		// console.log('deleted');
+		// console.log('deletes');
+		
+		req.session.user = null;
+		//!! ajax can not redirect 
+		//res.redirect('/');
+		res.send({
+			message: 'deleted successfully! Thanks for using'
+		})
+	})
+})
 
 module.exports = router;
