@@ -21,11 +21,13 @@
 		  </div>
 		  <div class="form-group">
 		    <label for="">New password</label>
-		    <input type="password" name="password" class="form-control">
+		    <input type="password" name="newPassword" class="form-control password">
+			<span id="new" style="color: red;"></span>
 		  </div>
 		  <div class="form-group">
 		    <label for="">Confirm password</label>
-		    <input type="password" name="password" class="form-control">
+		    <input type="password" name="confirmPassword" class="form-control password">
+			<span id="confirm" style="color: red;"></span>
 		  </div>
 		  
 		  <button type="submit" class="btn btn-primary">Save</button>
@@ -45,8 +47,47 @@
 
 {{ block 'script' }}
 <script type="text/javascript">
+	//check the password and the confirm password
+	// console.log($('.password'))
+	var $passwordArray = $('.password');
+	var flag = true;
+
+	$.each($passwordArray, function (index, value) {
+		let id = '';
+		let unshowId = '';
+		if (index === 0) {
+			index = 1;
+			id = '#new';
+			unshowId = '#confirm';
+		}
+		else {
+			index = 0;
+			id = '#confirm';
+			unshowId = '#new';
+		}
+		
+		$(this).keyup(function () {
+			console.log($(this).val(), $passwordArray.eq(index).val())
+			if ($(this).val() != $passwordArray.eq(index).val()) {
+				$(id).html('*the two password are not the same*')
+				$(unshowId).html('');
+				flag = false;
+			}
+			else {
+				$(id).html('')
+				$(unshowId).html('');
+				flag = true;
+			}
+		});
+	});
+	
 	//change the password
 	$('#form').on('submit', function(evt) {
+		if (!flag) {
+			alert('passwords are not the same!');
+			return;
+		}
+
 		evt.preventDefault();
 		
 		var formData = $(this).serialize();
@@ -57,6 +98,9 @@
 			data: formData,
 			success: function(data) {
 				window.alert(data.message);
+				if (data.code === 1) {
+					window.location.href = '/login';
+				}
 			},
 			error: function(err) {
 				console.log(err);

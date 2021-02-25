@@ -72,6 +72,7 @@ router.post('/login', function(req, res) {
 	var recData = req.body;
 	
 	recData.password = md5(md5(recData.password));
+	// console.log(recData.password);
 	//check if the email or password correct
 	User.findOne({
 		email: recData.email,

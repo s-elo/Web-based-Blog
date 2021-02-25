@@ -19,6 +19,7 @@ router.post('/settings/basicInfo', function(req, res) {
 	console.log(req.session.user)
 	var data = req.body;
 	
+	// gender setting
 	req.session.user.gender = data.gender;
 	User.findByIdAndUpdate(req.session.user._id, {
 		gender: data.gender
@@ -26,6 +27,7 @@ router.post('/settings/basicInfo', function(req, res) {
 		if (err) return console.error(err);
 	})
 	
+	// nickname setting
 	if (data.nickName != '') {
 		req.session.user.nickName = data.nickName;
 		User.findByIdAndUpdate(req.session.user._id, {
@@ -35,6 +37,7 @@ router.post('/settings/basicInfo', function(req, res) {
 		})
 	}
 	
+	// introduction setting
 	if (data.bio != '') {
 		req.session.user.bio = data.bio;
 		User.findByIdAndUpdate(req.session.user._id, {
@@ -44,6 +47,7 @@ router.post('/settings/basicInfo', function(req, res) {
 		})
 	}
 	
+	// birthday setting
 	if (data.birthday != '') {
 		req.session.user.birthday = data.birthday;
 		User.findByIdAndUpdate(req.session.user._id, {
@@ -58,7 +62,6 @@ router.post('/settings/basicInfo', function(req, res) {
 });
 
 //avatar
-	
 router.post('/avatar', multer().single('img'), function(req, res) {
 	console.log(req.file);
 	let fileName = (new Date()).getTime() 
@@ -98,30 +101,38 @@ router.get('/settings/accountSetting', function(req, res) {
 
 router.post('/settings/accountSetting', function(req, res) {
 	console.log(req.body);
-	var passwordArray = req.body.password;
-	
-	//console.log(req.session.user.password)
-	if (md5(md5(passwordArray[0])) === req.session.user.password) {
-		if (md5(md5(passwordArray[1])) === md5(md5(passwordArray[2]))) {
-			req.session.user.password = md5(md5(passwordArray[1]));
-			User.findByIdAndUpdate(req.session.user._id, {
-				password: md5(md5(passwordArray[1]))
+	let password = req.body.password;
+	let newPassword = req.body.newPassword;
+
+	// console.log(passwordArray[0]);
+	// console.log(req.session.user.password);
+	// console.log(md5(md5(passwordArray[0])));
+
+	if (md5(md5(password)) === req.session.user.password) {
+		User.findByIdAndUpdate(req.session.user._id, {
+				password: md5(md5(newPassword))
 			}, function(err, ret) {
 				if (err) return console.error(err);
 			})
 			
 			res.send({
+				// to check if it is wrong
+				code: 1,
 				message: 'change the password already!'
 			})
-		}
-		else {
-			res.send({
-				message: 'passwords are not the same!'
-			})
-		}
+		// if (md5(md5(passwordArray[1])) === md5(md5(passwordArray[2]))) {
+		// 	req.session.user.password = md5(md5(passwordArray[1]));
+			
+		// }
+		// else {
+		// 	res.send({
+		// 		message: 'passwords are not the same!'
+		// 	})
+		// }
 	}
 	else {
 		res.send({
+			code: 0,
 			message: 'wrong password!'
 		})
 	}
